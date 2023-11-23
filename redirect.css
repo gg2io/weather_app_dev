@@ -1,0 +1,86 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap');
+
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+
+body{
+    background-color: #37474f;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.container{
+    height: 400px;
+    background-color: #232931;
+    color: #fff;
+    border-radius: 25px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.35);
+}
+
+.not-found{
+    width: 100%;
+    text-align: center;
+    margin-top: 50px;
+    
+    
+}
+
+.not-found img{
+    width: 70%;
+}
+
+.not-found p{
+    color: #fff;
+    font-size: 22px;
+    font-weight: 500;
+    margin-top: 12px;
+}
+
+.search-box{
+    width: 100%;
+    padding: 25px 25px;
+    padding-left: 30px;
+    padding-right: 30px;
+    height: min-content;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    
+}
+
+
+
+.search-box input::placeholder{
+    font-size: 20px;
+    font-weight: 500;
+    color: #fff;
+    text-transform: none;
+}
+
+.search-box button{
+    color: #fff;
+    width: 100%;
+    font-size: 20px;
+    font-weight: 500;
+    text-transform: uppercase;
+    border-color: transparent;
+    background: transparent;
+    outline: none;
+    border: none;
+    border-radius: 25px;
+    padding: 10px;
+    background: #303f9f;
+    color: #fff;
+    transition: all 0.3s ease;
+}
+
+.search-box button:hover{
+    color: #fff;
+    background: #06283D;
+}
