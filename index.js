@@ -1,4 +1,3 @@
-const apiKey = 'YOUR_API_KEY_HERE';
 const search = document.querySelector('.search-box button');
 const todayInfo = document.querySelector('.today-info');
 const todayWeatherIcon = document.querySelector('.today-weather i');
@@ -27,12 +26,14 @@ const weatherIconMap = {
     '50n': 'water'
 };
 
-function fetchWeatherData(location) {
+async function fetchWeatherData(location) {
     // Construct the API url with the location and api key
-    const apiUrl = `https://api.openweathermap.org/data/2.5/forecast?q=${location}&appid=${apiKey}&units=metric`;
+    const apiUrl = `http://api.gg2.io/?location=${location}`;
 
     // Fetch weather data from api
-    fetch(apiUrl).then(response => response.json()).then(data => {
+    try {
+        const response = await fetch (apiUrl)
+        const data = await response.json ()
         // Update todays info
         const todayWeather = data.list[0].weather[0].description;
         const todayTemperature = `${Math.round(data.list[0].main.temp)}°C`;
@@ -104,10 +105,10 @@ function fetchWeatherData(location) {
             // Stop after getting 5 distinct days
             if (count === 5) break;
         }
-    }).catch(error => {
-        //alert(`Oops! Invalid location :/`);
+    } catch(error) {
+        console.log("Failed to load data from API", error)
         window.location.assign("redirect.html");
-    });
+    };
 }
 
 // Fetch weather data on document load for default location (London)
