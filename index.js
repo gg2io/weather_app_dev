@@ -28,7 +28,7 @@ const weatherIconMap = {
 
 async function fetchWeatherData(location) {
     // Construct the API url with the location and api key
-    const apiUrl = `http://api.gg2.io/?location=${location}`;
+    const apiUrl = `https://api.gg2.io/?location=${location}`;
 
     // Fetch weather data from api
     try {
