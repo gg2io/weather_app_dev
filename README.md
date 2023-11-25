@@ -5,4 +5,4 @@ The JS uses the [Open Weather API](https://openweathermap.org/api) to fetch curr
 
 I have redacted my personal API key for security.
 
-weatherapp.gg2.io
+[weatherapp.gg2.io](https://weatherapp.gg2.io)https://weatherapp.gg2.io
