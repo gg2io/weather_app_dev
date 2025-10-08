@@ -14,7 +14,7 @@ It fetches real-time weather data from the **OpenWeather API** and displays temp
 
 ## Preview
 
-![Weather App Screenshot](images/screenshot.png)  
+![Weather App Screenshot](https://github.com/user-attachments/assets/9092de67-5f58-475e-a549-76067e3b9cf3)  
 *A snapshot of the app in action (example).*
 
 ---
