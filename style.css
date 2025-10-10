@@ -198,5 +198,187 @@ body{
 }
 
 
+/* ============================================
+   MOBILE OPTIMIZATIONS
+   Only affects screens smaller than 768px
+   ============================================ */
+@media (max-width: 768px) {
+    body {
+        padding: 10px;
+        height: auto;
+        min-height: 100vh;
+    }
 
+    .container {
+        height: auto;
+        min-height: auto;
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        max-width: 500px;
+    }
 
+    .left-info {
+        width: 100%;
+        min-height: 280px;
+        float: none;
+        border-radius: 25px 25px 0 0;
+        transform: scale(1);
+        position: relative;
+    }
+
+    .left-info:hover {
+        transform: scale(1.02);
+    }
+
+    .pic-gradient {
+        border-radius: 25px 25px 0 0;
+    }
+
+    .today-info {
+        margin-top: 20px;
+        padding: 0 20px;
+    }
+
+    .today-info h2 {
+        font-size: 1.8rem;
+    }
+
+    .today-info span {
+        font-size: 0.9rem;
+    }
+
+    .today-weather {
+        left: 20px;
+        bottom: 20px;
+    }
+
+    .today-weather .bx {
+        font-size: 3.5rem;
+    }
+
+    .weather-temp {
+        font-size: 2.8rem;
+    }
+
+    .today-weather h3 {
+        font-size: 1rem;
+    }
+
+    .right-info {
+        float: none;
+        width: 100%;
+        padding-top: 20px;
+        padding-bottom: 20px;
+    }
+
+    .day-info {
+        padding: 20px 25px;
+    }
+
+    .day-info div {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 8px;
+    }
+
+    .day-info div .title {
+        font-size: 0.85rem;
+    }
+
+    .day-info div .value {
+        font-size: 0.85rem;
+    }
+
+    .days-list {
+        margin: 10px 25px;
+        overflow-x: auto;
+        flex-wrap: nowrap;
+        -webkit-overflow-scrolling: touch;
+    }
+
+    .days-list li {
+        padding: 20px 15px;
+        min-width: 70px;
+        flex-shrink: 0;
+    }
+
+    .days-list li .bx {
+        font-size: 1.8rem;
+    }
+
+    .days-list li span {
+        font-size: 0.9rem;
+    }
+
+    .days-list li .day-temp {
+        font-size: 0.95rem;
+    }
+
+    .search-box {
+        padding: 20px 25px;
+    }
+
+    .search-box input {
+        padding: 12px 20px;
+        font-size: 16px;
+        padding-right: 50px;
+    }
+
+    .search-box input::placeholder {
+        font-size: 16px;
+    }
+
+    .search-box button {
+        width: 45px;
+        height: 45px;
+        min-width: 45px;
+        font-size: 16px;
+        margin-left: -55px;
+    }
+}
+
+/* Extra small devices */
+@media (max-width: 375px) {
+    .container {
+        border-radius: 20px;
+    }
+
+    .left-info {
+        min-height: 250px;
+        border-radius: 20px 20px 0 0;
+    }
+
+    .pic-gradient {
+        border-radius: 20px 20px 0 0;
+    }
+
+    .today-info h2 {
+        font-size: 1.5rem;
+    }
+
+    .weather-temp {
+        font-size: 2.5rem;
+    }
+
+    .today-weather .bx {
+        font-size: 3rem;
+    }
+
+    .day-info {
+        padding: 15px 20px;
+    }
+
+    .days-list {
+        margin: 10px 20px;
+    }
+
+    .days-list li {
+        padding: 15px 10px;
+        min-width: 60px;
+    }
+
+    .search-box {
+        padding: 15px 20px;
+    }
+}
