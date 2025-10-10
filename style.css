@@ -238,6 +238,9 @@ body{
     .today-info {
         margin-top: 20px;
         padding: 0 20px;
+        align-items: center;
+        text-align: center;
+        width: 100%;
     }
 
     .today-info h2 {
@@ -249,8 +252,10 @@ body{
     }
 
     .today-weather {
-        left: 20px;
+        left: 50%;
+        transform: translateX(-50%);
         bottom: 20px;
+        align-items: center;
     }
 
     .today-weather .bx {
@@ -295,6 +300,7 @@ body{
         overflow-x: auto;
         flex-wrap: nowrap;
         -webkit-overflow-scrolling: touch;
+        justify-content: center;
     }
 
     .days-list li {
