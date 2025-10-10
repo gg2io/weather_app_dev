@@ -8,7 +8,7 @@
 A clean, responsive web-based weather application built using HTML, CSS, and JavaScript.  
 It fetches real-time weather data from the **OpenWeather API** and displays temperature, humidity, and other conditions.
 
-**Live demo**: [weatherapp.gg2.io](https://weatherapp.gg2.io)
+**Live demo**: [weatherapp.gg2.io](https://www.weatherapp.gg2.io)
 
 ---
 
