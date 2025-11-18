@@ -74,6 +74,9 @@ async function fetchWeatherData(location) {
 
         `;
 
+        // Show the container after data loads
+        document.querySelector('.container').style.opacity = '1';
+
         // Update next 4 days weather
         const today = new Date();
         const nextDaysData = data.list.slice(1);
