@@ -221,7 +221,7 @@ async function fetchWeatherData(location, lat = null, lon = null) {
         }
     } catch(error) {
         console.log("Failed to load data from API", error)
-        window.location.assign("redirect.html");
+        window.location.assign("not-found.html");
     };
 }
 
