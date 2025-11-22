@@ -119,17 +119,27 @@ function hideSuggestions() {
 function selectSuggestion(suggestionElement) {
     const name = suggestionElement.dataset.name;
     const country = suggestionElement.dataset.country;
+    const lat = suggestionElement.dataset.lat;
+    const lon = suggestionElement.dataset.lon;
     const location = `${name},${country}`;
 
-    fetchWeatherData(location);
+    // Use coordinates for accurate weather data
+    fetchWeatherData(location, lat, lon);
     searchInput.value = '';
     hideSuggestions();
     searchInput.blur();
 }
 
-async function fetchWeatherData(location) {
-    // Construct the API url with the location and api key
-    const apiUrl = `https://api.gg2.io/?location=${location}`;
+async function fetchWeatherData(location, lat = null, lon = null) {
+    // Construct the API url with the location/coordinates and api key
+    let apiUrl;
+    if (lat && lon) {
+        // Use coordinates for more accurate results (from suggestions)
+        apiUrl = `https://api.gg2.io/?lat=${lat}&lon=${lon}`;
+    } else {
+        // Use location name (from manual typing)
+        apiUrl = `https://api.gg2.io/?location=${location}`;
+    }
 
     // Fetch weather data from api
     try {
