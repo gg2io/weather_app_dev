@@ -149,6 +149,8 @@ body{
     display: flex;
     align-items: center;
     justify-content: space-between;
+    position: relative;
+    flex-wrap: wrap;
 }
 
 .search-box input{
@@ -195,6 +197,54 @@ body{
 .search-box button:hover{
     color: #fff;
     background: #06283D;
+}
+
+.suggestions-list {
+    position: absolute;
+    top: 100%;
+    left: 30px;
+    right: 30px;
+    background: #303f9f;
+    border-radius: 10px;
+    list-style: none;
+    max-height: 200px;
+    overflow-y: auto;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.35);
+    z-index: 1000;
+    display: none;
+    margin-top: -15px;
+}
+
+.suggestions-list.active {
+    display: block;
+}
+
+.suggestions-list li {
+    padding: 12px 20px;
+    color: #fff;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.suggestions-list li:last-child {
+    border-bottom: none;
+}
+
+.suggestions-list li:hover,
+.suggestions-list li.selected {
+    background: #06283D;
+}
+
+.suggestions-list li .location-name {
+    font-weight: 500;
+    font-size: 16px;
+}
+
+.suggestions-list li .location-details {
+    font-size: 12px;
+    opacity: 0.7;
+    margin-top: 2px;
 }
 
 

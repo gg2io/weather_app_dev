@@ -3,6 +3,10 @@ const todayInfo = document.querySelector('.today-info');
 const todayWeatherIcon = document.querySelector('.today-weather i');
 const todayTemp = document.querySelector('.weather-temp');
 const daysList = document.querySelector('.days-list');
+const searchInput = document.querySelector('.search-box input');
+const suggestionsList = document.querySelector('.suggestions-list');
+
+let debounceTimer;
 
 // Mapping of weather condition codes to icon class names (Depending on Openweather Api Response)
 const weatherIconMap = {
@@ -25,6 +29,103 @@ const weatherIconMap = {
     '50d': 'water',
     '50n': 'water'
 };
+
+// Debounce function to limit API calls
+function debounce(func, delay) {
+    return function(...args) {
+        clearTimeout(debounceTimer);
+        debounceTimer = setTimeout(() => func.apply(this, args), delay);
+    };
+}
+
+// Fetch location suggestions from geocoding API
+async function fetchLocationSuggestions(query) {
+    if (query.length < 4) {
+        hideSuggestions();
+        return;
+    }
+
+    try {
+        // Using api.gg2.io proxy to keep API key secure on server-side
+        const response = await fetch(`https://api.gg2.io/geocode?q=${encodeURIComponent(query)}`);
+        const data = await response.json();
+
+        displaySuggestions(data);
+    } catch (error) {
+        console.log("Failed to fetch location suggestions", error);
+        hideSuggestions();
+    }
+}
+
+// Display location suggestions
+function displaySuggestions(locations) {
+    if (!locations || locations.length === 0) {
+        hideSuggestions();
+        return;
+    }
+
+    // Remove duplicates based on name + country combination
+    const seen = new Set();
+    const uniqueLocations = locations.filter(location => {
+        const key = `${location.name}-${location.country}`.toLowerCase();
+        if (seen.has(key)) {
+            return false;
+        }
+        seen.add(key);
+        return true;
+    });
+
+    // Sort locations: prioritize GB, then US, then others
+    const sortedLocations = uniqueLocations.sort((a, b) => {
+        // GB locations first
+        if (a.country === 'GB' && b.country !== 'GB') return -1;
+        if (a.country !== 'GB' && b.country === 'GB') return 1;
+
+        // Then US locations
+        if (a.country === 'US' && b.country !== 'US') return -1;
+        if (a.country !== 'US' && b.country === 'US') return 1;
+
+        // Keep original order for others
+        return 0;
+    });
+
+    suggestionsList.innerHTML = '';
+
+    sortedLocations.forEach(location => {
+        const li = document.createElement('li');
+        li.innerHTML = `
+            <div class="location-name">${location.name}, ${location.country}</div>
+            <div class="location-details">${location.state || ''}</div>
+        `;
+        li.dataset.name = location.name;
+        li.dataset.country = location.country;
+        li.dataset.lat = location.lat;
+        li.dataset.lon = location.lon;
+
+        li.addEventListener('click', () => selectSuggestion(li));
+        suggestionsList.appendChild(li);
+    });
+
+    suggestionsList.classList.add('active');
+}
+
+// Hide suggestions
+function hideSuggestions() {
+    suggestionsList.classList.remove('active');
+    suggestionsList.innerHTML = '';
+}
+
+// Select a suggestion
+function selectSuggestion(suggestionElement) {
+    const name = suggestionElement.dataset.name;
+    const country = suggestionElement.dataset.country;
+    const location = `${name},${country}`;
+
+    fetchWeatherData(location);
+    searchInput.value = '';
+    hideSuggestions();
+    searchInput.blur();
+}
 
 async function fetchWeatherData(location) {
     // Construct the API url with the location and api key
@@ -137,8 +238,50 @@ function handleSearch(){
 }
 
 search.addEventListener('click', handleSearch);
-document.querySelector('.search-box input').addEventListener('keypress', function (e) {
+searchInput.addEventListener('keypress', function (e) {
     if (e.key === 'Enter') {
         handleSearch();
+    }
+});
+
+// Add input event listener with debouncing for autocomplete
+searchInput.addEventListener('input', debounce(function(e) {
+    const query = e.target.value.trim();
+    fetchLocationSuggestions(query);
+}, 300));
+
+// Hide suggestions when clicking outside
+document.addEventListener('click', function(e) {
+    if (!e.target.closest('.search-box')) {
+        hideSuggestions();
+    }
+});
+
+// Keyboard navigation for suggestions
+searchInput.addEventListener('keydown', function(e) {
+    const suggestions = suggestionsList.querySelectorAll('li');
+    const selected = suggestionsList.querySelector('li.selected');
+
+    if (e.key === 'ArrowDown') {
+        e.preventDefault();
+        if (!selected) {
+            suggestions[0]?.classList.add('selected');
+        } else {
+            selected.classList.remove('selected');
+            const next = selected.nextElementSibling || suggestions[0];
+            next.classList.add('selected');
+        }
+    } else if (e.key === 'ArrowUp') {
+        e.preventDefault();
+        if (selected) {
+            selected.classList.remove('selected');
+            const prev = selected.previousElementSibling || suggestions[suggestions.length - 1];
+            prev.classList.add('selected');
+        }
+    } else if (e.key === 'Enter' && selected) {
+        e.preventDefault();
+        selectSuggestion(selected);
+    } else if (e.key === 'Escape') {
+        hideSuggestions();
     }
 });
