@@ -122,9 +122,14 @@ document.addEventListener('DOMContentLoaded', () => {
 
 function handleSearch(){
     const inputElement = document.querySelector('.search-box input');
-    const location = inputElement.value;
+    let location = inputElement.value;
     if (location === '')
         return;
+
+    // Default to GB if no country code specified
+    if (!location.includes(',')) {
+        location = `${location},GB`;
+    }
 
     fetchWeatherData(location);
     inputElement.value = '';
