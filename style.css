@@ -392,6 +392,27 @@ body{
         font-size: 16px;
         margin-left: -55px;
     }
+
+    .suggestions-list {
+        left: 25px;
+        right: 25px;
+        max-height: 250px;
+        margin-top: -10px;
+    }
+
+    .suggestions-list li {
+        padding: 16px 20px;
+        min-height: 48px;
+    }
+
+    .suggestions-list li .location-name {
+        font-size: 18px;
+    }
+
+    .suggestions-list li .location-details {
+        font-size: 14px;
+        margin-top: 4px;
+    }
 }
 
 /* Extra small devices */
@@ -436,5 +457,24 @@ body{
 
     .search-box {
         padding: 15px 20px;
+    }
+
+    .suggestions-list {
+        left: 20px;
+        right: 20px;
+        max-height: 200px;
+    }
+
+    .suggestions-list li {
+        padding: 14px 18px;
+        min-height: 44px;
+    }
+
+    .suggestions-list li .location-name {
+        font-size: 16px;
+    }
+
+    .suggestions-list li .location-details {
+        font-size: 13px;
     }
 }
