@@ -121,11 +121,14 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 function handleSearch(){
-    const location = document.querySelector('.search-box input').value;
+    const inputElement = document.querySelector('.search-box input');
+    const location = inputElement.value;
     if (location === '')
         return;
 
-    fetchWeatherData(location);    
+    fetchWeatherData(location);
+    inputElement.value = '';
+    inputElement.blur();   
 }
 
 search.addEventListener('click', handleSearch);
