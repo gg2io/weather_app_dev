@@ -379,6 +379,7 @@ body{
         padding: 12px 20px;
         font-size: 16px;
         padding-right: 50px;
+        text-transform: none;
     }
 
     .search-box input::placeholder {
