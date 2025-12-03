@@ -8,6 +8,13 @@ const suggestionsList = document.querySelector('.suggestions-list');
 
 let debounceTimer;
 
+// Detect if visitor is a search engine crawler
+function isCrawler() {
+    const userAgent = navigator.userAgent.toLowerCase();
+    const crawlers = ['googlebot', 'bingbot', 'slurp', 'duckduckbot', 'baiduspider', 'yandexbot', 'facebookexternalhit'];
+    return crawlers.some(crawler => userAgent.includes(crawler));
+}
+
 // Mapping of weather condition codes to icon class names (Depending on Openweather Api Response)
 const weatherIconMap = {
     '01d': 'sun',
@@ -221,7 +228,14 @@ async function fetchWeatherData(location, lat = null, lon = null) {
         }
     } catch(error) {
         console.log("Failed to load data from API", error)
-        window.location.assign("not-found.html");
+  
+        // For crawlers: show default content so page can be indexed
+        // For users: redirect to error page
+        if (isCrawler()) {
+            document.querySelector('.container').style.opacity = '1';
+        } else {
+            window.location.assign("not-found.html");
+        }
     };
 }
 
